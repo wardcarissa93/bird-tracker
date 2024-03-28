@@ -40,3 +40,43 @@
 .read-the-docs {
   color: #888;
 }
+
+
+
+#root {
+  width: 50%;
+}
+
+#nav-bar {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  margin: 0 auto;
+}
+
+a {
+  color: slateblue;
+}
+
+#bird-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 15rem;
+}
+
+input {
+  margin-left: 1rem;
+}
+
+#add-bird-button {
+  width: 8rem;
+  margin: 0 auto;
+  background-color: slateblue;
+  color: white;
+  border: 2px solid slateblue;
+}
+
+#add-bird-button:hover {
+  border: 2px solid black;
+}
