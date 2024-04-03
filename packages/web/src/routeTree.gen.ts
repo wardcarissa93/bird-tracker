@@ -11,62 +11,62 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as SearchImport } from './routes/search'
-import { Route as MyBirdsImport } from './routes/my-birds'
-import { Route as AddBirdImport } from './routes/add-bird'
-// import { Route as AuthenticatedImport } from './routes/_authenticated'
-import { Route as IndexImport } from './routes/index'
+import { Route as AuthenticatedImport } from './routes/_authenticated'
+import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedSearchImport } from './routes/_authenticated/search'
+import { Route as AuthenticatedMyBirdsImport } from './routes/_authenticated/my-birds'
+import { Route as AuthenticatedAddBirdImport } from './routes/_authenticated/add-bird'
 
 // Create/Update Routes
 
-const SearchRoute = SearchImport.update({
-  path: '/search',
+const AuthenticatedRoute = AuthenticatedImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRoute,
 } as any)
 
-const MyBirdsRoute = MyBirdsImport.update({
-  path: '/my-birds',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AddBirdRoute = AddBirdImport.update({
-  path: '/add-bird',
-  getParentRoute: () => rootRoute,
-} as any)
-
-// const AuthenticatedRoute = AuthenticatedImport.update({
-//   id: '/_authenticated',
-//   getParentRoute: () => rootRoute,
-// } as any)
-
-const IndexRoute = IndexImport.update({
+const AuthenticatedIndexRoute = AuthenticatedIndexImport.update({
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+
+const AuthenticatedSearchRoute = AuthenticatedSearchImport.update({
+  path: '/search',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+
+const AuthenticatedMyBirdsRoute = AuthenticatedMyBirdsImport.update({
+  path: '/my-birds',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+
+const AuthenticatedAddBirdRoute = AuthenticatedAddBirdImport.update({
+  path: '/add-bird',
+  getParentRoute: () => AuthenticatedRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      preLoaderRoute: typeof IndexImport
+    '/_authenticated': {
+      preLoaderRoute: typeof AuthenticatedImport
       parentRoute: typeof rootRoute
     }
-    // '/_authenticated': {
-    //   preLoaderRoute: typeof AuthenticatedImport
-    //   parentRoute: typeof rootRoute
-    // }
-    '/add-bird': {
-      preLoaderRoute: typeof AddBirdImport
-      parentRoute: typeof rootRoute
+    '/_authenticated/add-bird': {
+      preLoaderRoute: typeof AuthenticatedAddBirdImport
+      parentRoute: typeof AuthenticatedImport
     }
-    '/my-birds': {
-      preLoaderRoute: typeof MyBirdsImport
-      parentRoute: typeof rootRoute
+    '/_authenticated/my-birds': {
+      preLoaderRoute: typeof AuthenticatedMyBirdsImport
+      parentRoute: typeof AuthenticatedImport
     }
-    '/search': {
-      preLoaderRoute: typeof SearchImport
-      parentRoute: typeof rootRoute
+    '/_authenticated/search': {
+      preLoaderRoute: typeof AuthenticatedSearchImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/': {
+      preLoaderRoute: typeof AuthenticatedIndexImport
+      parentRoute: typeof AuthenticatedImport
     }
   }
 }
@@ -74,10 +74,12 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren([
-  IndexRoute,
-  AddBirdRoute,
-  MyBirdsRoute,
-  SearchRoute,
+  AuthenticatedRoute.addChildren([
+    AuthenticatedAddBirdRoute,
+    AuthenticatedMyBirdsRoute,
+    AuthenticatedSearchRoute,
+    AuthenticatedIndexRoute,
+  ]),
 ])
 
 /* prettier-ignore-end */
