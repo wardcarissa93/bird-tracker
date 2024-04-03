@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
+// import { KindeProvider } from "@kinde-oss/kinde-auth-react";
 
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";

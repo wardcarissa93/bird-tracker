@@ -30,7 +30,7 @@ function AddBird() {
     <div key={bird.id}>
       <h3>{bird.species}</h3>
       <p>
-        Seen in {bird.location} on {bird.date}
+        Seen {bird.location} on {bird.date}
       </p>
     </div>
   ))}
