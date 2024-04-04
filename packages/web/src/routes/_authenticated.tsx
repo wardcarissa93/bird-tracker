@@ -5,11 +5,14 @@ export function Login() {
     const { login, register } = useKindeAuth();
     return (
         <div>
-            <h1>Welcome to Bird Tracker</h1>
-            <p>Please login to continue</p>
-            <div>
-                <button onClick={() => login()}>Login</button>
-                <button onClick={() => register()}>Register</button>
+            <div id="app-title">
+                <h1>Welcome to </h1>
+                <h1>Bird Tracker</h1>
+            </div>
+            <p>Please login to continue.</p>
+            <div id="login-register-buttons">
+                <button id="login-button" onClick={() => login()}>Login</button>
+                <button id="register-button" onClick={() => register()}>Register</button>
             </div>
         </div>
     );
