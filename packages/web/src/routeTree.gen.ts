@@ -13,7 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as AuthenticatedImport } from './routes/_authenticated'
 import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index'
-import { Route as AuthenticatedSearchImport } from './routes/_authenticated/search'
+import { Route as AuthenticatedProfileImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedMyBirdsImport } from './routes/_authenticated/my-birds'
 import { Route as AuthenticatedAddBirdImport } from './routes/_authenticated/add-bird'
 
@@ -29,8 +29,8 @@ const AuthenticatedIndexRoute = AuthenticatedIndexImport.update({
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 
-const AuthenticatedSearchRoute = AuthenticatedSearchImport.update({
-  path: '/search',
+const AuthenticatedProfileRoute = AuthenticatedProfileImport.update({
+  path: '/profile',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 
@@ -60,8 +60,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMyBirdsImport
       parentRoute: typeof AuthenticatedImport
     }
-    '/_authenticated/search': {
-      preLoaderRoute: typeof AuthenticatedSearchImport
+    '/_authenticated/profile': {
+      preLoaderRoute: typeof AuthenticatedProfileImport
       parentRoute: typeof AuthenticatedImport
     }
     '/_authenticated/': {
@@ -77,7 +77,7 @@ export const routeTree = rootRoute.addChildren([
   AuthenticatedRoute.addChildren([
     AuthenticatedAddBirdRoute,
     AuthenticatedMyBirdsRoute,
-    AuthenticatedSearchRoute,
+    AuthenticatedProfileRoute,
     AuthenticatedIndexRoute,
   ]),
 ])

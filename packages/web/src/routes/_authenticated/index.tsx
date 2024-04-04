@@ -8,6 +8,8 @@ export const Route = createFileRoute('/_authenticated/')({
 function HomePage() {
   return (
     <div className="App">
+      <h3>Home Page</h3>
+      <p>Add search for birds here if I can figure out the API</p>
     </div>
   );
 }
