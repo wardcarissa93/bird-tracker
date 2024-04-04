@@ -22,7 +22,13 @@ export function API({ stack }: StackContext) {
       }
     },
     routes: {
-      "GET /": "packages/functions/src/lambda.handler",
+
+      "GET /": {
+        authorizer: "none",
+        function: {
+          handler: "packages/functions/src/lambda.handler"
+        },
+      },
       "GET /birds": "packages/functions/src/birds.handler",
       "POST /birds": "packages/functions/src/birds.handler" 
     },

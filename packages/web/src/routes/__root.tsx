@@ -7,10 +7,10 @@ const RootComponent = () => {
   return (
     <>
       <div id="nav-bar">
-        <Link to="/" className="[&.active]:font-bold">
+        <Link to="/">
           Home
         </Link>
-        <Link to="/add-bird" className="[&.active]:font-bold">
+        <Link to="/add-bird">
           Add Bird
         </Link>
         <Link to="/my-birds">
