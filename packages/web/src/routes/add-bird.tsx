@@ -30,34 +30,36 @@ function MyBirds() {
   };
   
 
-  return <>        
-  <h2>Record a Bird Sighting</h2>
+  return <div id="add-bird-component">        
+    <h2>Record a Bird Sighting</h2>
     <form onSubmit={handleSubmit} id="bird-form">
-      <label>
-        Species:
+      <div id="species-input" className="input-div">
+        <label htmlFor="species">Species:</label>
         <input
           type="text"
+          id="species"
           value={species}
           onChange={(e) => setSpecies(e.target.value)}
         />
-      </label>
-      <label>
-        Location:
+      </div>
+      <div id="location-input" className="input-div">
+        <label htmlFor="location">Location:</label>
         <input
           type="text"
+          id="location"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
         />
-      </label>
-      <label>
-        Date:
+      </div>
+      <div id="date-input" className="input-div">
+        <label htmlFor="date">Date:</label>
         <input
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
         />
-      </label>
+      </div>
       <button type="submit" id="add-bird-button">Add Bird</button>
     </form>
-  </>
+  </div>
 }

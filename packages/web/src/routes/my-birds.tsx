@@ -24,15 +24,28 @@ function AddBird() {
     getBirds();
   }, []);
 
-  return       <div className="card">
+  return       <div id="birds-found-component">
     <h2>Birds Found</h2>
-  {birds.map((bird) => (
-    <div key={bird.id}>
-      <h3>{bird.species}</h3>
-      <p>
-        Seen {bird.location} on {bird.date}
-      </p>
-    </div>
-  ))}
+    <div id="birds-found-div">
+      {birds.map((bird) => (
+      <div key={bird.id} className="bird-found">
+        <div className="image-div">
+          <p>Image goes here</p>
+        </div>
+        <div className="species-div">
+          <p>Species:</p>
+          <p className="species-name">{bird.species}</p>
+        </div>
+        <div className="location-div">
+          <p>Location seen:</p>
+          <p>{bird.location}</p>
+        </div>
+        <div className="date-div">
+          <p>Date:</p>
+          <p>{bird.date}</p>
+        </div>
+      </div>
+    ))}
+  </div>
 </div>
 }
