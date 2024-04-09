@@ -8,6 +8,7 @@ export const Route = createFileRoute('/')({
 function HomePage() {
   return (
     <div className="App">
+      <p>Search for birds here if I can figure out the API</p>
     </div>
   );
 }

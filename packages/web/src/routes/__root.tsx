@@ -6,9 +6,6 @@ export const Route = createRootRoute({
       <div id="nav-bar">
         <Link to="/" className="[&.active]:font-bold">
           Home
-        </Link>{' '}
-        <Link to="/search" className="[&.active]:font-bold">
-          Search
         </Link>
         <Link to="/add-bird" className="[&.active]:font-bold">
           Add Bird

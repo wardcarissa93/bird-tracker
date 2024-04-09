@@ -11,18 +11,12 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as SearchImport } from './routes/search'
 import { Route as MyBirdsImport } from './routes/my-birds'
 import { Route as AddBirdImport } from './routes/add-bird'
-// import { Route as AuthenticatedImport } from './routes/_authenticated'
+import { Route as AuthenticatedImport } from './routes/_authenticated'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
-
-const SearchRoute = SearchImport.update({
-  path: '/search',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const MyBirdsRoute = MyBirdsImport.update({
   path: '/my-birds',
@@ -52,20 +46,16 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    // '/_authenticated': {
-    //   preLoaderRoute: typeof AuthenticatedImport
-    //   parentRoute: typeof rootRoute
-    // }
+    '/_authenticated': {
+      preLoaderRoute: typeof AuthenticatedImport
+      parentRoute: typeof rootRoute
+    }
     '/add-bird': {
       preLoaderRoute: typeof AddBirdImport
       parentRoute: typeof rootRoute
     }
     '/my-birds': {
       preLoaderRoute: typeof MyBirdsImport
-      parentRoute: typeof rootRoute
-    }
-    '/search': {
-      preLoaderRoute: typeof SearchImport
       parentRoute: typeof rootRoute
     }
   }
@@ -77,7 +67,6 @@ export const routeTree = rootRoute.addChildren([
   IndexRoute,
   AddBirdRoute,
   MyBirdsRoute,
-  SearchRoute,
 ])
 
 /* prettier-ignore-end */
