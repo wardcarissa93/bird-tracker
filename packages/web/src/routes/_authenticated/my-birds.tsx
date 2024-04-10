@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
+import { format, addDays } from 'date-fns';
 
 export const Route = createFileRoute('/_authenticated/my-birds')({
   component: AddBird,
@@ -11,6 +12,13 @@ type Bird = {
   location: string;
   date: string;
 };
+
+function formatDate(dateString: string) {
+  const date = new Date(dateString);
+  // formatted date will be off by 1 day unless a date is added prior to formatting
+  const adjustedDate = addDays(date, 1);
+  return format(adjustedDate, "MMM. do yyyy");
+}
 
 function AddBird() {
   const [birds, setBirds] = useState<Bird[]>([]);
@@ -42,7 +50,7 @@ function AddBird() {
         </div>
         <div className="date-div">
           <p>Date:</p>
-          <p>{bird.date}</p>
+          <p>{formatDate(bird.date)}</p>
         </div>
       </div>
     ))}

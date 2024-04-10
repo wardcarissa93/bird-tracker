@@ -1,7 +1,15 @@
-import { createRootRoute, Link, Outlet } from '@tanstack/react-router'
+import { createRootRoute, Link, Outlet } from '@tanstack/react-router';
+import { useKindeAuth } from '@kinde-oss/kinde-auth-react';
 
+// Renaming "component" to "RootRouteComponent" to follow naming conventions
 export const Route = createRootRoute({
-  component: () => (
+  component: RootRouteComponent, // Using the renamed component here
+});
+
+function RootRouteComponent() {
+  const { login, register } = useKindeAuth();
+
+  return (
     <>
       <div id="nav-bar">
         <div id="left-nav-bar">
@@ -16,12 +24,13 @@ export const Route = createRootRoute({
           </Link>
         </div>
         <div id="right-nav-bar">
-          <p>Login</p>
-          <p>Register</p>
+          <p onClick={() => login()}>Login</p>
+          <p onClick={() => register()}>Register</p>
         </div>
       </div>
       <div className="line"></div>
       <Outlet />
     </>
-  ),
-})
+  );
+}
+

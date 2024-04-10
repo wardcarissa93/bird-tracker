@@ -87,6 +87,7 @@ function MyBirds() {
                     <label htmlFor="date">Date:</label>
                     <input
                         type="date"
+                        id="date"
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
                     />

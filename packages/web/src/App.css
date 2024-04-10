@@ -172,6 +172,7 @@ button:hover {
   align-items: center;
   row-gap: 0.5rem;
   border: 5px solid #337357;
+  border-radius: 1rem;
   margin: 1rem;
 }
 
