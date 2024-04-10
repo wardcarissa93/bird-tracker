@@ -146,6 +146,7 @@ button {
   color: #fff;
   border-radius: 1rem;
   font-family: 'Barlow', sans-serif;
+  cursor: pointer;
 }
 
 button:hover {
@@ -236,11 +237,29 @@ button:hover {
 
 #login-register-buttons>button {
   margin: 0.5rem auto;
+  padding: 1rem 1.25rem;
+}
+
+#profile-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#user-email {
+  width: 15rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  height: 3.1rem;
+}
+
+#user-email>p {
+  margin: 0;
 }
 
 @media (min-width: 540px) {
-  #nav-bar {
-    flex-direction: row;
+  #nav-bar {flex-direction: row;
     justify-content: space-between;
     margin-top: 4.75rem;
   }
@@ -248,6 +267,13 @@ button:hover {
   #bird-form {
     width: 50%;
     max-width: 40rem;
+  }
+
+  #user-email {
+    width: 75%;
+    max-width: 40rem;
+    flex-direction: row;
+    justify-content: space-between;
   }
 
   .input-div {

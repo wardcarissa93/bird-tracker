@@ -9,7 +9,7 @@ export const Route = createFileRoute("/_authenticated/profile")({
 function ProfilePage() {
   const { logout, user } = useKindeAuth();
   return (
-    <div>
+    <div id="profile-component">
         <h2>Hi, {user?.given_name}</h2>
         <div id="user-email">
           <p>Your Email:</p>
