@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/my-birds')({
+export const Route = createFileRoute('/_authenticated/my-birds')({
   component: AddBird,
 })
 
