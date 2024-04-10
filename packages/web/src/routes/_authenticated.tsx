@@ -4,7 +4,7 @@ import { useKindeAuth } from '@kinde-oss/kinde-auth-react';
 export function Login() {
     const { login, register } = useKindeAuth();
     return (
-        <div>
+        <div id="login-register-component">
             <div id="app-title">
                 <h1>Welcome to </h1>
                 <h1>Bird Tracker</h1>

@@ -76,7 +76,8 @@ body {
   display: flex;
 }
 
-#left-nav-bar>a, #right-nav-bar>p {
+#left-nav-bar>a, 
+#right-nav-bar>p {
   margin: 0;
   padding: 0 0.5rem;
   color: #2e2d4d;
@@ -90,6 +91,13 @@ body {
 
 #left-nav-bar>a+a, #right-nav-bar>p+p {
   border-left: 2px solid #337357;
+}
+
+#right-nav-bar>p>a {
+  margin: 0;
+  color: #2e2d4d;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .line {
@@ -204,10 +212,37 @@ button:hover {
   font-style: italic;
 }
 
+#login-register-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#app-title {
+  display: flex;
+  flex-direction: column;
+  height: 4.8rem;
+}
+
+#app-title>h1 {
+  margin: 0;
+}
+
+#login-register-buttons {
+  display: flex;
+  flex-direction: column;
+  margin: 4rem auto;
+}
+
+#login-register-buttons>button {
+  margin: 0.5rem auto;
+}
+
 @media (min-width: 540px) {
   #nav-bar {
     flex-direction: row;
     justify-content: space-between;
+    margin-top: 4.75rem;
   }
 
   #bird-form {
@@ -222,6 +257,17 @@ button:hover {
 
   input {
     width: 12rem;
+  }
+
+  #app-title {
+    flex-direction: row;
+    column-gap: 0.5rem;
+    align-items: flex-end;
+  }
+
+  #login-register-buttons {
+    flex-direction: row;
+    column-gap: 3rem;
   }
 }
 

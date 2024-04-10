@@ -7,7 +7,7 @@ export const Route = createRootRoute({
 });
 
 function RootRouteComponent() {
-  const { login, register } = useKindeAuth();
+  const { login, logout, register, isAuthenticated } = useKindeAuth();
 
   return (
     <>
@@ -23,10 +23,22 @@ function RootRouteComponent() {
             My Birds
           </Link>
         </div>
-        <div id="right-nav-bar">
-          <p onClick={() => login()}>Login</p>
-          <p onClick={() => register()}>Register</p>
-        </div>
+        {!isAuthenticated && (
+          <div id="right-nav-bar">
+            <p onClick={() => login()}>Login</p>
+            <p onClick={() => register()}>Register</p>
+          </div>
+        )}
+        {isAuthenticated && (
+          <div id="right-nav-bar">
+            <p>
+              <Link to="/profile">
+                My Profile
+              </Link>
+            </p>
+            <p onClick={() => logout()}>Logout</p>
+          </div>
+        )}
       </div>
       <div className="line"></div>
       <Outlet />
