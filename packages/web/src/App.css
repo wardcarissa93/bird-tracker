@@ -148,6 +148,10 @@ button:hover {
   width: 6rem;
 }
 
+#submission-message {
+  text-align: center;
+}
+
 #birds-found-component {
   display: flex;
   flex-direction: column;
