@@ -3,7 +3,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { format, addDays } from 'date-fns';
 
 export const Route = createFileRoute('/_authenticated/my-birds')({
-  component: AddBird,
+  component: MyBirds,
 })
 
 type Bird = {
@@ -20,7 +20,7 @@ function formatDate(dateString: string) {
   return format(adjustedDate, "MMM. do yyyy");
 }
 
-function AddBird() {
+function MyBirds() {
   const [birds, setBirds] = useState<Bird[]>([]);
 
   useEffect(() => {

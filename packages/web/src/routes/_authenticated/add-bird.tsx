@@ -1,65 +1,58 @@
 import React, { useState } from 'react';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 
+type FileState = File | null;
+
 export const Route = createFileRoute('/_authenticated/add-bird')({
-    component: MyBirds,
+    component: AddBird,
 });
 
-function MyBirds() {
+function AddBird() {
     const navigate = useNavigate();
+
     const [species, setSpecies] = useState('');
     const [location, setLocation] = useState('');
     const [date, setDate] = useState('');
+    const [image, setImage] = useState<FileState>(null);
     const [submissionMessage, setSubmissionMessage] = useState('');
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setSubmissionMessage('Submitting bird sighting...'); // Display submission message
+        setSubmissionMessage('Submitting bird sighting...');
 
-        // Check if the species is entered
-        if (!species) {
-            setSubmissionMessage('Error: Please enter a species.');
-            return;
-        }
-
-        // Check if the location is entered
-        if (!location) {
-          setSubmissionMessage('Error: Please enter a location.');
-          return;
-        }
-
-        // Check if the date is selected
-        if (!date) {
-            setSubmissionMessage('Error: Please select a date.');
+        // Check if any required field is empty
+        if (!species || !location || !date) {
+            setSubmissionMessage('Error: Please fill in all required fields.');
             return;
         }
 
         try {
-            const newBird = { species, location, date };
+            const formData = new FormData();
+            formData.append('species', species);
+            formData.append('location', location);
+            formData.append('date', date);
+            if (image) {
+                formData.append('image', image);
+            }
 
             const res = await fetch(import.meta.env.VITE_APP_API_URL + '/birds', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ bird: newBird }),
+                body: formData,
             });
-            await res.json(); // Assuming you don't need to use the response data
+            await res.json();
 
-            // Clear form fields directly
             setSpecies('');
             setLocation('');
             setDate('');
-
-            // Set success message
-            setSubmissionMessage('Bird Sighting Recorded!');
-
+            setImage(null);
+            setSubmissionMessage('Bird sighting recorded!');
             navigate({ to: '/my-birds' });
         } catch (error) {
-            // Display error message
             setSubmissionMessage(`Error: ${(error as Error).message}`);
         }
     };
+
+    const [filePreviewURL, setFilePreviewURL] = useState<string | undefined>();
 
     return (
         <div id="add-bird-component">
@@ -92,6 +85,48 @@ function MyBirds() {
                         onChange={(e) => setDate(e.target.value)}
                     />
                 </div>
+                <div id="image-input" className="input-div">
+                    <label htmlFor="image">Image:</label>
+
+                    <input
+                        type="file"
+                        id="image"
+                        accept="image/*"
+                        onChange={(e) => {
+                          // setImage(e.target.files?.[0] || null);
+                          // console.log("filePreviewURL: ", filePreviewURL);
+                          // if (filePreviewURL) {
+                          //   URL.revokeObjectURL(filePreviewURL);
+                          // }
+                          // if (image) {
+                          //   console.log("image: ", image);
+                          //   const url = URL.createObjectURL(image);
+                          //   setFilePreviewURL(url);
+                          // } else {
+                          //   setFilePreviewURL(undefined);
+                          // }
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            setImage(file);
+                            const url = URL.createObjectURL(file);
+                            setFilePreviewURL(url);
+                          } else {
+                            setImage(null);
+                            setFilePreviewURL(undefined);
+                          }
+                        }}
+                    />
+                </div>
+                <div className="input-div" id="image-preview-div">
+                  <p>Currently selected image:</p>
+                  <div>
+                    {filePreviewURL ? (
+                      <img src={filePreviewURL} alt="Preview of Uploaded Image" id="image-preview"/>
+                    ) : (
+                      <p>No image selected</p>
+                    )}
+                  </div>
+                </div>
                 <button type="submit" id="add-bird-button">
                     Add Bird
                 </button>
@@ -101,4 +136,4 @@ function MyBirds() {
     );
 }
 
-export default MyBirds;
+export default AddBird;
