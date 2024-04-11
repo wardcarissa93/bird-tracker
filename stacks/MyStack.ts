@@ -1,6 +1,7 @@
-import { StackContext, Api, EventBus, StaticSite } from "sst/constructs";
+import { StackContext, Api, EventBus, StaticSite, Bucket } from "sst/constructs";
 
 export function API({ stack }: StackContext) {
+  const assetsBucket = new Bucket(stack, "assets");
 
   const api = new Api(stack, "api", {
     defaults: {
@@ -13,7 +14,15 @@ export function API({ stack }: StackContext) {
     routes: {
       "GET /": "packages/functions/src/lambda.handler",
       "GET /birds": "packages/functions/src/birds.handler",
-      "POST /birds": "packages/functions/src/birds.handler" 
+      "POST /birds": "packages/functions/src/birds.handler",
+      "POST /signed-url": {
+        function: {
+          environment: {
+            ASSETS_BUCKET_NAME: assetsBucket.bucketName,
+          },
+          handler: "packages/functions/src/s3.handler",
+        }
+      }
     },
   });
 

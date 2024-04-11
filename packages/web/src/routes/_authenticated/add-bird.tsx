@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { useKindeAuth } from '@kinde-oss/kinde-auth-react';
 
 type FileState = File | null;
 
@@ -8,6 +9,7 @@ export const Route = createFileRoute('/_authenticated/add-bird')({
 });
 
 function AddBird() {
+    const { getToken } = useKindeAuth();
     const navigate = useNavigate();
 
     const [species, setSpecies] = useState('');
@@ -15,31 +17,103 @@ function AddBird() {
     const [date, setDate] = useState('');
     const [image, setImage] = useState<FileState>(null);
     const [submissionMessage, setSubmissionMessage] = useState('');
+    const [filePreviewURL, setFilePreviewURL] = useState<string | undefined>();
+
+    const computeSHA256 = async (file: File) => {
+        const buffer = await file.arrayBuffer();
+        const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray
+            .map((b) => b.toString(16).padStart(2, "0"))
+            .join("");
+        return hashHex;
+    };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        const token = await getToken();
+        if (!token) {
+            throw new Error("No token found");
+        }
+
         setSubmissionMessage('Submitting bird sighting...');
 
         // Check if any required field is empty
-        if (!species || !location || !date) {
-            setSubmissionMessage('Error: Please fill in all required fields.');
+        switch ('') {
+          case species:
+              setSubmissionMessage('Error: Please enter a species.');
+              return;
+          case location:
+              setSubmissionMessage('Error: Please enter a location.');
+              return;
+          case date:
+              setSubmissionMessage('Error: Please select a date.');
+              return;
+          default:
+              break;
+        }
+
+        // Check if the uploaded file is an image
+        if (image && !image.type.startsWith('image/')) {
+            setSubmissionMessage('Error: Please upload an image file.');
             return;
         }
 
         try {
-            const formData = new FormData();
-            formData.append('species', species);
-            formData.append('location', location);
-            formData.append('date', date);
+            const data = {
+                species: species,
+                location: location,
+                date: date,
+                imageUrl: '',
+            }
+
             if (image) {
-                formData.append('image', image);
+                const signedURLResponse = await fetch(
+                    import.meta.env.VITE_APP_API_URL + "/signed-url",
+                    {
+                        method: "POST",
+                        headers: {
+                            Authorization: token,
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            contentType: image.type,
+                            contentLength: image.size,
+                            checksum: await computeSHA256(image),
+                        }),
+                    }
+                );
+                if (!signedURLResponse.ok) {
+                    throw new Error("An error occurred while adding the bird.");
+                }
+                const { url } = (await signedURLResponse.json()) as { url: string };
+                console.log("url: ", url);
+
+                await fetch(url, {
+                    method: "PUT",
+                    body: image,
+                    headers: {
+                        "Content-Type": image.type,
+                    },
+                });
+
+                const imageUrl = url.split("?")[0];
+                data.imageUrl = imageUrl;
             }
 
             const res = await fetch(import.meta.env.VITE_APP_API_URL + '/birds', {
                 method: 'POST',
-                body: formData,
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             });
-            await res.json();
+
+            if (!res.ok) {
+                throw new Error("An error occurred while creating the expense.");
+            }
+            const json = await res.json();
 
             setSpecies('');
             setLocation('');
@@ -47,12 +121,11 @@ function AddBird() {
             setImage(null);
             setSubmissionMessage('Bird sighting recorded!');
             navigate({ to: '/my-birds' });
+            return json.bird;
         } catch (error) {
             setSubmissionMessage(`Error: ${(error as Error).message}`);
         }
     };
-
-    const [filePreviewURL, setFilePreviewURL] = useState<string | undefined>();
 
     return (
         <div id="add-bird-component">
@@ -93,27 +166,19 @@ function AddBird() {
                         id="image"
                         accept="image/*"
                         onChange={(e) => {
-                          // setImage(e.target.files?.[0] || null);
-                          // console.log("filePreviewURL: ", filePreviewURL);
-                          // if (filePreviewURL) {
-                          //   URL.revokeObjectURL(filePreviewURL);
-                          // }
-                          // if (image) {
-                          //   console.log("image: ", image);
-                          //   const url = URL.createObjectURL(image);
-                          //   setFilePreviewURL(url);
-                          // } else {
-                          //   setFilePreviewURL(undefined);
-                          // }
-                          const file = e.target.files?.[0];
-                          if (file) {
-                            setImage(file);
-                            const url = URL.createObjectURL(file);
-                            setFilePreviewURL(url);
-                          } else {
-                            setImage(null);
-                            setFilePreviewURL(undefined);
-                          }
+                            const file = e.target.files?.[0];
+                            if (file) {
+                                setImage(file);
+                                const url = URL.createObjectURL(file);
+                                setFilePreviewURL(url);
+                                computeSHA256(file).then(hash => {
+                                    console.log('SHA256 hash:', hash);
+                                    // You can use the hash for validation or other purposes
+                                }).catch(err => console.error('Error calculating hash:', err));
+                            } else {
+                                setImage(null);
+                                setFilePreviewURL(undefined);
+                            }
                         }}
                     />
                 </div>
