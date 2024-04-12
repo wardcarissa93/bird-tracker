@@ -20,19 +20,20 @@ declare module "@tanstack/react-router" {
 
 // Create a client
 const queryClient = new QueryClient();
-
+console.log(import.meta.env.VITE_APP_KINDE_AUDIENCE)
 ReactDOM.createRoot(document.getElementById("root")!).render(
+
   <React.StrictMode>
     <KindeProvider
-        audience={import.meta.env.VITE_APP_KINDE_AUDIENCE}
-        clientId="0185dc0cefaa4e37b661d46b6e6d0967"
-        domain="https://birdtracker.kinde.com"
-        logoutUri={window.location.origin}
-        redirectUri={window.location.origin}
-    >
+    audience={import.meta.env.VITE_APP_KINDE_AUDIENCE}
+      clientId="0185dc0cefaa4e37b661d46b6e6d0967"
+      domain="https://birdtracker.kinde.com"
+      logoutUri={window.location.origin}
+      redirectUri={window.location.origin}
+	>
       <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </KindeProvider>
   </React.StrictMode>
 );

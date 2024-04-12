@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import { useKindeAuth } from "@kinde-oss/kinde-auth-react"; // Import the token handling library
+import { format, addDays } from 'date-fns';
+import { useQuery } from '@tanstack/react-query';
+import { useKindeAuth } from '@kinde-oss/kinde-auth-react';
 
 export const Route = createFileRoute('/_authenticated/my-birds')({
-  component: AddBird,
+  component: MyBirds,
 })
 
 type Bird = {
@@ -13,49 +15,85 @@ type Bird = {
   date: string;
 };
 
-function AddBird() {
-  const [birds, setBirds] = useState<Bird[]>([]);
-  const { getToken } = useKindeAuth(); // Access the getToken function
+function formatDate(dateString: string) {
+  const date = new Date(dateString);
+  // formatted date will be off by 1 day unless a date is added prior to formatting
+  const adjustedDate = addDays(date, 1);
+  return format(adjustedDate, "MMM. do yyyy");
+}
 
-  useEffect(() => {
-    async function getBirds() {
-      try {
-        const token = await getToken(); // Get the token
-        if (!token) {
-          throw new Error("No token found");
-        }
-        
-        const res = await fetch(import.meta.env.VITE_APP_API_URL + "/birds", {
-          headers: {
-            Authorization: token, // Send the token in the Authorization header
-          },
-        });
-        
-        if (!res.ok) {
-          throw new Error("Something went wrong");
-        }
+function MyBirds() {
+  const { getToken } = useKindeAuth();
+  // const [birds, setBirds] = useState<Bird[]>([]);
 
-        const data = await res.json();
-        setBirds(data.birds);
-      } catch (error) {
-        console.error(error);
-        // Handle errors here, such as setting an error state or displaying a message
-      }
+  // useEffect(() => {
+  //   async function getBirds() {
+  //     try {
+  //       const token = await getToken();
+  //       if (!token) {
+  //         throw new Error("No token found.");
+  //       }
+  //       const res = await fetch(import.meta.env.VITE_APP_API_URL + "/birds", {
+  //         headers: {
+  //           Authorization: token, 
+  //         },
+  //       });
+  //       if (!res.ok) {
+  //         throw new Error("Failed to fetch birds data.");
+  //       }
+  //       const data = await res.json();
+  //       setBirds(data.birds);
+  //     } catch (error) {
+  //       console.error("Error fetching birds:", error);
+  //       // Handle the error state or display a message to the user
+  //     }
+  //   }    
+  //   getBirds();
+  // }, [getToken]);
+
+  async function getAllExpenses() {
+    const token = await getToken();
+    if (!token) {
+      throw new Error("No token found");
     }
-    getBirds();
-  }, [getToken]); // Include getToken in the dependencies array to ensure it's fetched when needed
+    const res = await fetch(import.meta.env.VITE_APP_API_URL + "/birds", {
+      headers: {
+        Authorization: token,
+      },
+    });
+    if (!res.ok) {
+      throw new Error("Something went wrong");
+    }
+    return (await res.json()) as { birds: Bird[] };
+  }
 
-  return (
-    <div className="card">
-      <h2>Birds Found</h2>
-      {birds.map((bird) => (
-        <div key={bird.id}>
-          <h3>{bird.species}</h3>
-          <p>
-            Seen {bird.location} on {bird.date}
-          </p>
+  const { data } = useQuery({
+    queryKey: ["getAllExpenses"],
+    queryFn: getAllExpenses,
+  });
+
+  return       <div id="birds-found-component">
+    <h2>Birds Found</h2>
+    <div id="birds-found-div">
+      {data?.birds.map((bird) => (
+      <div key={bird.id} className="bird-found">
+        <div className="image-div">
+          <p>Image goes here</p>
         </div>
-      ))}
-    </div>
-  );
+        <div className="species-div">
+          <p>Species:</p>
+          <p className="species-name">{bird.species}</p>
+        </div>
+        <div className="location-div">
+          <p>Location seen:</p>
+          <p>{bird.location}</p>
+        </div>
+        <div className="date-div">
+          <p>Date:</p>
+          <p>{formatDate(bird.date)}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
 }

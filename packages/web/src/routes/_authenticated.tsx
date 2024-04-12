@@ -1,10 +1,10 @@
-import { createFileRoute, Outlet } from "@tanstack/react-router";
-import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
+import { createFileRoute, Outlet } from '@tanstack/react-router';
+import { useKindeAuth } from '@kinde-oss/kinde-auth-react';
 
 export function Login() {
     const { login, register } = useKindeAuth();
     return (
-        <div>
+        <div id="login-register-component">
             <div id="app-title">
                 <h1>Welcome to </h1>
                 <h1>Bird Tracker</h1>
@@ -21,11 +21,11 @@ export function Login() {
 const Component = () => {
     const { isAuthenticated } = useKindeAuth();
     if (!isAuthenticated) {
-        return <Login />
-    }
-    return <Outlet />
+        return <Login/>
+    } 
+    return <Outlet/>
 };
 
-export const Route  = createFileRoute("/_authenticated")({
+export const Route = createFileRoute("/_authenticated")({
     component: Component,
 });

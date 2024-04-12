@@ -1,10 +1,9 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  width: 60%;
-  min-width: 20rem;
+  width: 50%;
 }
 
 
@@ -32,80 +31,312 @@ input {
   margin-left: 1rem;
 }
 
-#login-register-buttons {
-  display: flex;
-  flex-direction: column;
-  row-gap: 1rem;
-}
-
-@media (min-width: 600px) {
-  #login-register-buttons {
-    flex-direction: row;
-    column-gap: 1rem;
-    justify-content: center;
-  }
-
-  #login-register-buttons > button {
-    margin: 0;
-  }
-}
-
-#add-bird-button, 
-#login-button, 
-#register-button,
-#logout-button {
+#add-bird-button {
+  width: 8rem;
   margin: 0 auto;
   background-color: slateblue;
   color: white;
   border: 2px solid slateblue;
 }
 
-#add-bird-button:hover,
-#login-button:hover,
-#register-button:hover,
-#logout-button:hover {
+#add-bird-button:hover {
   border: 2px solid black;
+} */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+html {
+  box-sizing: border-box;
+  background-color: #e4e3d3;
 }
 
-#add-bird-button {
-  width: 8rem;
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
-#login-button,
-#register-button,
-#logout-button {
-  width: 6rem;
+body {
+  margin: 2rem auto;
+  width: 90%;
+  font-family: 'Barlow', sans-serif;
+  font-weight: 400;
+  color: #2e2d4d;
 }
 
-#app-title > h1 {
+#nav-bar {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.5rem;
+  align-items: center;
+}
+
+#left-nav-bar, #right-nav-bar {
   margin: 0;
+  display: flex;
 }
 
-@media (min-width: 1024px) {
-  #app-title {
-    display: flex;
-    column-gap: 0.5rem;
-    justify-content: center;
-  }
+#left-nav-bar>a, 
+#right-nav-bar>p {
+  margin: 0;
+  padding: 0 0.5rem;
+  color: #2e2d4d;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-#user-email {
-  margin-bottom: 1rem;
+#left-nav-bar>a:hover, #right-nav-bar>p:hover {
+  color: #fc4404;
+}
+
+#left-nav-bar>a+a, #right-nav-bar>p+p {
+  border-left: 2px solid #337357;
+}
+
+#right-nav-bar>p>a {
+  margin: 0;
+  color: #2e2d4d;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.line {
+  width: 100%;
+  height: 0.5rem;
+  border-radius: 0.25rem;
+  background-color: #337357;
+  margin: 0.5rem 0;
+}
+
+#add-bird-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#bird-form {
+  display: flex;
+  flex-direction: column;
+  width: 15rem;
+}
+
+.input-div {
   display: flex;
   flex-direction: column;
   row-gap: 0.5rem;
-  height: 3.5rem;
+  margin-bottom: 0.75rem;
 }
 
-@media (min-width: 600px) {
+input {
+  background-color: #e4e3d3;
+  border: 2px solid transparent;
+  border-bottom: 2px solid #337357;
+}
+
+#image-preview-div>p {
+  margin: 0;
+}
+
+#image-preview-div>div {
+  width: 15rem;
+  height: 10rem;
+  border: 2px solid #6d9f71;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+}
+
+#image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+button {
+  margin: 1.5rem auto;
+  padding: 0.25rem 0.5rem;
+  font-size: 16px;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #6d9f71;
+  background-color: #6d9f71;
+  color: #fff;
+  border-radius: 1rem;
+  font-family: 'Barlow', sans-serif;
+  cursor: pointer;
+}
+
+button:hover {
+  border: 2px solid #337357;
+}
+
+#add-bird-button {
+  width: 6rem;
+}
+
+#submission-message {
+  text-align: center;
+}
+
+#birds-found-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#birds-found-div {
+  display: grid;
+  grid-template-columns: repeat(1, 20rem);
+}
+
+.bird-found {
+  width: 18rem;
+  height: 18rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 0.5rem;
+  border: 5px solid #337357;
+  border-radius: 1rem;
+  margin: 1rem;
+}
+
+.image-div {
+  width: 15rem;
+  height: 10rem;
+  border: 2px solid #6d9f71;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+}
+
+.species-div, 
+.location-div, 
+.date-div {
+  display: flex;
+  justify-content: space-between;
+  width: 15rem;
+}
+
+.species-div>p,
+.location-div>p,
+.date-div>p {
+  margin: 0;
+}
+
+.species-name {
+  font-style: italic;
+}
+
+#login-register-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#app-title {
+  display: flex;
+  flex-direction: column;
+  height: 4.8rem;
+}
+
+#app-title>h1 {
+  margin: 0;
+}
+
+#login-register-buttons {
+  display: flex;
+  flex-direction: column;
+  margin: 4rem auto;
+}
+
+#login-register-buttons>button {
+  margin: 0.5rem auto;
+  padding: 1rem 1.25rem;
+}
+
+#profile-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#user-email {
+  width: 15rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  height: 3.1rem;
+}
+
+#user-email>p {
+  margin: 0;
+}
+
+@media (min-width: 540px) {
+  #nav-bar {flex-direction: row;
+    justify-content: space-between;
+    margin-top: 4.75rem;
+  }
+
+  #bird-form {
+    width: 50%;
+    max-width: 40rem;
+  }
+
   #user-email {
+    width: 75%;
+    max-width: 40rem;
     flex-direction: row;
     justify-content: space-between;
-    width: 20rem;
-    margin: 0 auto 1rem auto;
+  }
+
+  .input-div {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  input {
+    width: 12rem;
+  }
+
+  #image-preview-div {
+    flex-direction: column;
+  }
+
+  #image-preview-div>div {
+    margin: 0 auto;
+  }
+
+  #app-title {
+    flex-direction: row;
+    column-gap: 0.5rem;
+    align-items: flex-end;
+  }
+
+  #login-register-buttons {
+    flex-direction: row;
+    column-gap: 3rem;
   }
 }
 
-#user-email > p { 
-  margin: 0;
+@media (min-width: 640px) {
+  #birds-found-div {
+    grid-template-columns: repeat(2, 20rem);
+  }
+}
+
+@media (min-width: 960px) {
+  #birds-found-div {
+    grid-template-columns: repeat(3, 20rem);
+  }
+}
+
+.temporary {
+  text-align: center;
 }

@@ -1,8 +1,10 @@
-import { StackContext, Api, EventBus, StaticSite } from "sst/constructs";
+import { StackContext, Api, EventBus, StaticSite, Bucket } from "sst/constructs";
 
 export function API({ stack }: StackContext) {
-
   const audience = `api-BirdApp-${stack.stage}`;
+
+  const assetsBucket = new Bucket(stack, "assets");
+
   const api = new Api(stack, "api", {
     authorizers: {
       myAuthorizer: {
@@ -22,17 +24,26 @@ export function API({ stack }: StackContext) {
       }
     },
     routes: {
-
       "GET /": {
         authorizer: "none",
         function: {
-          handler: "packages/functions/src/lambda.handler"
-        },
+          handler: "packages/functions/src/lambda.handler",
+        }
       },
       "GET /birds": "packages/functions/src/birds.handler",
-      "POST /birds": "packages/functions/src/birds.handler" 
+      "POST /birds": "packages/functions/src/birds.handler",
+      "POST /signed-url": {
+        function: {
+          environment: {
+            ASSETS_BUCKET_NAME: assetsBucket.bucketName,
+          },
+          handler: "packages/functions/src/s3.handler",
+        }
+      }
     },
   });
+
+  api.attachPermissionsToRoute("POST /signed-url", [assetsBucket, "grantPut"]);
 
   const web = new StaticSite(stack, "web", {
     path: "packages/web",
@@ -49,3 +60,5 @@ export function API({ stack }: StackContext) {
     WebsiteUrl: web.url,
   });
 }
+
+// npx sst deploy --stage prod
