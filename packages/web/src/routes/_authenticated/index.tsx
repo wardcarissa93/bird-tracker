@@ -35,10 +35,10 @@ function HomePage() {
       const apiUrl = `https://nuthatch.lastelm.software/v2/birds?page=5&pageSize=100&region=North%20America&operator=AND&name=${query}`;
       const res = await fetch(apiUrl, {
         headers: {
-          Authorization: import.meta.env.REACT_APP_NUTHATCH_API_KEY,
+          'api-key': import.meta.env.REACT_APP_NUTHATCH_API_KEY,
         },
       });  
-      console.log("res: ", res);
+      console.log("res: ", res.json());
       if (!res.ok) {
         throw new Error('Failed to fetch search results');
       }
