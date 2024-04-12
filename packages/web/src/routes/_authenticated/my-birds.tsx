@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 import { format, addDays } from 'date-fns';
+import { useQuery } from '@tanstack/react-query';
+import { useKindeAuth } from '@kinde-oss/kinde-auth-react';
 
 export const Route = createFileRoute('/_authenticated/my-birds')({
   component: MyBirds,
@@ -21,21 +23,59 @@ function formatDate(dateString: string) {
 }
 
 function MyBirds() {
-  const [birds, setBirds] = useState<Bird[]>([]);
+  const { getToken } = useKindeAuth();
+  // const [birds, setBirds] = useState<Bird[]>([]);
 
-  useEffect(() => {
-    async function getBirds() {
-      const res = await fetch(import.meta.env.VITE_APP_API_URL + "/birds");
-      const data = await res.json();
-      setBirds(data.birds);
+  // useEffect(() => {
+  //   async function getBirds() {
+  //     try {
+  //       const token = await getToken();
+  //       if (!token) {
+  //         throw new Error("No token found.");
+  //       }
+  //       const res = await fetch(import.meta.env.VITE_APP_API_URL + "/birds", {
+  //         headers: {
+  //           Authorization: token, 
+  //         },
+  //       });
+  //       if (!res.ok) {
+  //         throw new Error("Failed to fetch birds data.");
+  //       }
+  //       const data = await res.json();
+  //       setBirds(data.birds);
+  //     } catch (error) {
+  //       console.error("Error fetching birds:", error);
+  //       // Handle the error state or display a message to the user
+  //     }
+  //   }    
+  //   getBirds();
+  // }, [getToken]);
+
+  async function getAllExpenses() {
+    const token = await getToken();
+    if (!token) {
+      throw new Error("No token found");
     }
-    getBirds();
-  }, []);
+    const res = await fetch(import.meta.env.VITE_APP_API_URL + "/birds", {
+      headers: {
+        Authorization: token,
+      },
+    });
+    if (!res.ok) {
+      throw new Error("Something went wrong");
+    }
+    return (await res.json()) as { birds: Bird[] };
+  }
+
+  const { data } = useQuery({
+    queryKey: ["getAllExpenses"],
+    queryFn: getAllExpenses,
+  });
 
   return       <div id="birds-found-component">
     <h2>Birds Found</h2>
     <div id="birds-found-div">
-      {birds.map((bird) => (
+      {data?.birds.map((bird) => (
       <div key={bird.id} className="bird-found">
         <div className="image-div">
           <p>Image goes here</p>

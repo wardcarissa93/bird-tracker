@@ -107,6 +107,8 @@ function AddBird() {
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: token,
+
                 },
             });
 
