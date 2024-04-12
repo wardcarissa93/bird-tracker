@@ -8,6 +8,7 @@ export const Route = createRootRoute({
 
 function RootRouteComponent() {
   const { login, logout, register, isAuthenticated } = useKindeAuth();
+  const currentYear = new Date().getFullYear();
 
   return (
     <>
@@ -42,7 +43,9 @@ function RootRouteComponent() {
       </div>
       <div className="line"></div>
       <Outlet />
+      <footer>
+        <p>&copy; {currentYear} - Carissa Ward</p>
+      </footer>
     </>
   );
 }
-
