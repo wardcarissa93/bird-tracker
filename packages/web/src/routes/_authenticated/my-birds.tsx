@@ -13,6 +13,7 @@ type Bird = {
   species: string;
   location: string;
   date: string;
+  imageUrl?: string;
 };
 
 function formatDate(dateString: string) {
@@ -24,34 +25,8 @@ function formatDate(dateString: string) {
 
 function MyBirds() {
   const { getToken } = useKindeAuth();
-  // const [birds, setBirds] = useState<Bird[]>([]);
 
-  // useEffect(() => {
-  //   async function getBirds() {
-  //     try {
-  //       const token = await getToken();
-  //       if (!token) {
-  //         throw new Error("No token found.");
-  //       }
-  //       const res = await fetch(import.meta.env.VITE_APP_API_URL + "/birds", {
-  //         headers: {
-  //           Authorization: token, 
-  //         },
-  //       });
-  //       if (!res.ok) {
-  //         throw new Error("Failed to fetch birds data.");
-  //       }
-  //       const data = await res.json();
-  //       setBirds(data.birds);
-  //     } catch (error) {
-  //       console.error("Error fetching birds:", error);
-  //       // Handle the error state or display a message to the user
-  //     }
-  //   }    
-  //   getBirds();
-  // }, [getToken]);
-
-  async function getAllExpenses() {
+  async function getBirds() {
     const token = await getToken();
     if (!token) {
       throw new Error("No token found");
@@ -68,8 +43,8 @@ function MyBirds() {
   }
 
   const { data } = useQuery({
-    queryKey: ["getAllExpenses"],
-    queryFn: getAllExpenses,
+    queryKey: ["getBirds"],
+    queryFn: getBirds,
   });
 
   return       <div id="birds-found-component">
@@ -77,9 +52,15 @@ function MyBirds() {
     <div id="birds-found-div">
       {data?.birds.map((bird) => (
       <div key={bird.id} className="bird-found">
-        <div className="image-div">
-          <p>Image goes here</p>
-        </div>
+        {(bird.imageUrl) ? (
+          <div className="image-div">
+            <img src={bird.imageUrl} alt={"Image of " + bird.species} />
+          </div>
+        ) : (
+          <div className="no-image-div">
+            <p>No Image Available</p>
+          </div>
+        )}
         <div className="species-div">
           <p>Species:</p>
           <p className="species-name">{bird.species}</p>
