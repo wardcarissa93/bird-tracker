@@ -9,27 +9,6 @@ import { authMiddleware } from '@bird-tracker/core/auth';
 
 const app = new Hono();
 
-// const fakeBirds = [
-//     {
-//         id: "1",
-//         species: "Rock Dove",
-//         location: "Downtown Vancouver",
-//         date: "2024-03-20",
-//     },
-//     {
-//         id: "2",
-//         species: "Barred Owl",
-//         location: "Stanley Park",
-//         date: "2022-12-03",
-//     },
-//     {
-//         id: "3",
-//         species: "American Coot",
-//         location: "Trout Lake",
-//         date: "2024-03-07",
-//     },
-// ];
-
 app.get("/birds", authMiddleware, async (c) => {
     const userId = c.var.userId;
     const birds = await db
