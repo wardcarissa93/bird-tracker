@@ -42,10 +42,16 @@ function HomePage() {
       <SearchBar onSearch={handleSearch} />
       <div>
         {searchResults.map((bird) => (
-          <div key={bird.id}>
-            <p>Name: {bird.name}</p>
-            <p>Scientific Name: {bird.sciName}</p>
-            {bird.images && bird.images.length > 0 && <img src={bird.images[0]} alt={bird.name} />}
+          <div key={bird.id} className="bird-result">
+            {(bird.images && bird.images.length > 0) ? (
+              <img src={bird.images[0]} alt={bird.name} className="bird-result-image"/>
+            ) : (
+              <div className="bird-result-no-image">
+                <p>No Image Available</p>
+              </div>
+            )}
+            <p>{bird.name}</p>
+            <p className="species-name">{bird.sciName}</p>
           </div>
         ))}
       </div>

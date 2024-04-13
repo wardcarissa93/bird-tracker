@@ -108,6 +108,28 @@ body {
   margin: 0.5rem 0;
 }
 
+.bird-result>p {
+  margin: 0;
+}
+
+.bird-result-image {
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  display: inline-block;
+  max-height: 10rem;
+  max-width: 15rem;
+  border: 2px solid #6d9f71;
+  margin-bottom: 1rem;
+}
+
+.bird-result-image>img {
+  max-height: 9.8rem;
+  max-width: 14.875rem;
+  object-fit: contain;
+}
+
+
 #add-bird-component {
   display: flex;
   flex-direction: column;
@@ -151,6 +173,7 @@ input {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  overflow: hidden;
 }
 
 button {
@@ -193,7 +216,7 @@ button:hover {
   grid-template-columns: repeat(1, 20rem);
 }
 
-.bird-found {
+.bird-found, .bird-result {
   width: 18rem;
   height: 18rem;
   display: flex;
@@ -207,14 +230,16 @@ button:hover {
 }
 
 .no-image-div,
-.image-div {
+.image-div,
+.bird-result-no-image {
   display: flex;
   justify-content: center;
   align-items: center;
   border: 2px solid #6d9f71;
 }
 
-.no-image-div {
+.no-image-div,
+.bird-result-no-image {
   width: 15rem;
   height: 10rem;
   font-size: 12px;
@@ -287,6 +312,10 @@ button:hover {
 
 #user-email>p {
   margin: 0;
+}
+
+#logout-button {
+  width: 5.5rem;
 }
 
 footer {

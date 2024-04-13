@@ -14,10 +14,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   };
 
   return (
-    <div>
+    <div id="search-bar">
       <input
+        id="search-input"
         type="text"
-        placeholder="Enter search term"
+        placeholder="Search by common name"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
