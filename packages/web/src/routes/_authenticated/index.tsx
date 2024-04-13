@@ -23,7 +23,7 @@ function HomePage() {
       console.log(apiUrl);
       const res = await fetch(apiUrl, {
         headers: {
-          'api-key': "a4689a94-cfcd-4a0b-b4aa-c5a2b969a788",
+          'api-key': "",
         },
       })
       .then((res) => {
