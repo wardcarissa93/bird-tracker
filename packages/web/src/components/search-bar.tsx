@@ -23,6 +23,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         onChange={(e) => setQuery(e.target.value)}
       />
       <button onClick={handleSearch}>Search</button>
+      <p>Search powered by Nuthatch API</p>
     </div>
   );
 };

@@ -40,7 +40,7 @@ function HomePage() {
   return (
     <div className="App">
       <SearchBar onSearch={handleSearch} />
-      <div>
+      <div id="bird-results-div">
         {searchResults.map((bird) => (
           <div key={bird.id} className="bird-result">
             {(bird.images && bird.images.length > 0) ? (

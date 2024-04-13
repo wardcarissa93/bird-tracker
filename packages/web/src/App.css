@@ -211,7 +211,8 @@ button:hover {
   min-height: 72.5vh;
 }
 
-#birds-found-div {
+#birds-found-div,
+#bird-results-div {
   display: grid;
   grid-template-columns: repeat(1, 20rem);
 }
@@ -374,13 +375,15 @@ footer {
 }
 
 @media (min-width: 640px) {
-  #birds-found-div {
+  #birds-found-div,
+  #bird-results-div {
     grid-template-columns: repeat(2, 20rem);
   }
 }
 
 @media (min-width: 960px) {
-  #birds-found-div {
+  #birds-found-div,
+  #bird-results-div {
     grid-template-columns: repeat(3, 20rem);
   }
 }
