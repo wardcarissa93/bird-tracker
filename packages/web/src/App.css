@@ -1,48 +1,3 @@
-/* #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  width: 50%;
-}
-
-
-
-
-#nav-bar {
-  display: flex;
-  width: 100%;
-  justify-content: space-around;
-  margin: 0 auto;
-}
-
-a {
-  color: slateblue;
-}
-
-#bird-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 15rem;
-}
-
-input {
-  margin-left: 1rem;
-}
-
-#add-bird-button {
-  width: 8rem;
-  margin: 0 auto;
-  background-color: slateblue;
-  color: white;
-  border: 2px solid slateblue;
-}
-
-#add-bird-button:hover {
-  border: 2px solid black;
-} */
-
 @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 html {
@@ -71,7 +26,8 @@ body {
   align-items: center;
 }
 
-#left-nav-bar, #right-nav-bar {
+#left-nav-bar,
+ #right-nav-bar {
   margin: 0;
   display: flex;
 }
@@ -85,15 +41,21 @@ body {
   cursor: pointer;
 }
 
-#left-nav-bar>a:hover, #right-nav-bar>p:hover {
+#left-nav-bar>a:hover, 
+#right-nav-bar>p:hover, 
+#right-nav-bar>p>a:hover,
+#search-bar-div>p>a:hover
+ {
   color: #fc4404;
 }
 
-#left-nav-bar>a+a, #right-nav-bar>p+p {
+#left-nav-bar>a+a, 
+#right-nav-bar>p+p {
   border-left: 2px solid #337357;
 }
 
-#right-nav-bar>p>a {
+#right-nav-bar>p>a, 
+#search-bar-div>p>a {
   margin: 0;
   color: #2e2d4d;
   text-decoration: none;
@@ -108,7 +70,51 @@ body {
   margin: 0.5rem 0;
 }
 
-.bird-result>p {
+#search-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.83rem 0;
+}
+
+#search-title>h2 {
+  margin: 0;
+}
+
+#search-bar-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 15rem;
+}
+
+#search-bar-div>p {
+  margin: 0;
+  font-size: 12px;
+}
+
+#search-bar {
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+#search-input {
+  width: 100%;
+  height: 1.325rem;
+}
+
+.bird-result-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 0.5rem;
+  position: relative;
+}
+
+.bird-result-name>p {
   margin: 0;
 }
 
@@ -120,15 +126,8 @@ body {
   max-height: 10rem;
   max-width: 15rem;
   border: 2px solid #6d9f71;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 }
-
-.bird-result-image>img {
-  max-height: 9.8rem;
-  max-width: 14.875rem;
-  object-fit: contain;
-}
-
 
 #add-bird-component {
   display: flex;
@@ -169,7 +168,8 @@ input {
   font-size: 12px;
 }
 
-#image-preview, .image-div>img {
+#image-preview, 
+.image-div>img {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -204,7 +204,8 @@ button:hover {
   text-align: center;
 }
 
-#birds-found-component {
+#birds-found-component, 
+.App {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -217,7 +218,8 @@ button:hover {
   grid-template-columns: repeat(1, 20rem);
 }
 
-.bird-found, .bird-result {
+.bird-found, 
+.bird-result {
   width: 18rem;
   height: 18rem;
   display: flex;
@@ -335,9 +337,20 @@ footer {
     height: 72.5vh;
   }
 
-  #bird-form, #user-email {
+  #bird-form, 
+  #user-email,
+  #search-bar-div {
     width: 50%;
     max-width: 40rem;
+  }
+
+  #search-bar {
+    flex-direction: row;
+    column-gap: 1rem;
+  }
+
+  #search-bar>button {
+    margin: 0;
   }
 
   #user-email {
