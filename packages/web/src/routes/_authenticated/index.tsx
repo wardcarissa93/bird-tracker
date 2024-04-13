@@ -17,33 +17,31 @@ export const Route = createFileRoute('/_authenticated/')({
 function HomePage() {
   const [searchResults, setSearchResults] = useState<Bird[]>([]);
 
-  // const handleSearch = async (query: string) => {
-  //   try {
-  //     const res = await fetch(`https://nuthatch.lastelm.software/api/birds?name=${query}`);
-  //     if (!res.ok) {
-  //       throw new Error('Failed to fetch search results');
-  //     }
-  //     const data = await res.json();
-  //     setSearchResults(data);
-  //   } catch (error) {
-  //     console.error('Error fetching search results: ', error);
-  //   }
-  // };
-
   const handleSearch = async (query: string) => {
     try {
-      const apiUrl = `https://nuthatch.lastelm.software/v2/birds?page=5&pageSize=100&region=North%20America&operator=AND&name=${query}`;
+      const apiUrl = `https://nuthatch.lastelm.software/v2/birds?page=1&pageSize=100&region=North%20America&operator=AND&name=${query}`;
+      console.log(apiUrl);
       const res = await fetch(apiUrl, {
         headers: {
-          'api-key': import.meta.env.REACT_APP_NUTHATCH_API_KEY,
+          'api-key': "a4689a94-cfcd-4a0b-b4aa-c5a2b969a788",
         },
+      })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Failed to fetch search results');
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data["entities"][0]);
       });  
-      console.log("res: ", res.json());
-      if (!res.ok) {
-        throw new Error('Failed to fetch search results');
-      }
-      const data = await res.json();
-      setSearchResults(data);
+      // console.log("res: ", res.json());
+      // console.log(res.json())
+      // if (!res.ok) {
+      //   throw new Error('Failed to fetch search results');
+      // }
+      // const data = await res.json();
+      // setSearchResults(data);
     } catch (error) {
       console.error('Error fetching search results: ', error);
     }

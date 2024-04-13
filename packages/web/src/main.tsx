@@ -20,7 +20,6 @@ declare module "@tanstack/react-router" {
 
 // Create a client
 const queryClient = new QueryClient();
-console.log(import.meta.env.VITE_APP_KINDE_AUDIENCE)
 ReactDOM.createRoot(document.getElementById("root")!).render(
 
   <React.StrictMode>
