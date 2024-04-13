@@ -61,4 +61,3 @@ export function API({ stack }: StackContext) {
   });
 }
 
-// npx sst deploy --stage prod
