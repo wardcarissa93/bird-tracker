@@ -20,32 +20,23 @@ function HomePage() {
   const handleSearch = async (query: string) => {
     try {
       const apiUrl = `https://nuthatch.lastelm.software/v2/birds?page=1&pageSize=100&region=North%20America&operator=AND&name=${query}`;
-      console.log(apiUrl);
       const res = await fetch(apiUrl, {
         headers: {
-          'api-key': "",
+          'api-key': import.meta.env.VITE_NUTHATCH_API_KEY,
         },
-      })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error('Failed to fetch search results');
-        }
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data["entities"][0]);
-      });  
-      // console.log("res: ", res.json());
-      // console.log(res.json())
-      // if (!res.ok) {
-      //   throw new Error('Failed to fetch search results');
-      // }
-      // const data = await res.json();
-      // setSearchResults(data);
+      });
+      console.log(import.meta.env.VITE_NUTHATCH_API_KEY)
+      if (!res.ok) {
+        throw new Error('Failed to fetch search results');
+      }
+      const data = await res.json();
+      setSearchResults(data["entities"]);
     } catch (error) {
       console.error('Error fetching search results: ', error);
     }
   };
+
+  console.log("search results: ", searchResults);
 
   return (
     <div className="App">
