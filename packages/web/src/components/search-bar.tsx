@@ -14,16 +14,18 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   };
 
   return (
-    <div id="search-bar">
-      <input
-        id="search-input"
-        type="text"
-        placeholder="Search by common name"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <button onClick={handleSearch}>Search</button>
-      <p>Search powered by Nuthatch API</p>
+    <div id="search-bar-div">
+      <p>Search powered by <a href="https://nuthatch.lastelm.software/" target="_blank">Nuthatch API</a></p>
+      <div id="search-bar">
+        <input
+          id="search-input"
+          type="text"
+          placeholder="Search by common name"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        <button onClick={handleSearch}>Search</button>
+      </div>
     </div>
   );
 };

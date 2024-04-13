@@ -39,6 +39,10 @@ function HomePage() {
 
   return (
     <div className="App">
+      <div id="search-title">
+        <h2>Search for North American Birds</h2>
+        <h2>by Common Name</h2>
+      </div>
       <SearchBar onSearch={handleSearch} />
       <div id="bird-results-div">
         {searchResults.map((bird) => (
@@ -50,8 +54,10 @@ function HomePage() {
                 <p>No Image Available</p>
               </div>
             )}
-            <p>{bird.name}</p>
-            <p className="species-name">{bird.sciName}</p>
+            <div className="bird-result-name">
+              <p>{bird.name}</p>
+              <p className="species-name">{bird.sciName}</p>
+            </div>
           </div>
         ))}
       </div>
