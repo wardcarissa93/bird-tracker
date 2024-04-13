@@ -25,7 +25,6 @@ function HomePage() {
           'api-key': import.meta.env.VITE_NUTHATCH_API_KEY,
         },
       });
-      console.log(import.meta.env.VITE_NUTHATCH_API_KEY)
       if (!res.ok) {
         throw new Error('Failed to fetch search results');
       }

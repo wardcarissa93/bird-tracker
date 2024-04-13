@@ -185,6 +185,7 @@ button:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 72.5vh;
 }
 
 #birds-found-div {
@@ -273,6 +274,7 @@ button:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 72.5vh;
 }
 
 #user-email {
@@ -288,9 +290,9 @@ button:hover {
 }
 
 footer {
-  position: absolute;
+  position: relative;
   bottom: 0;
-  right: 2rem;
+  text-align: right;
 }
 
 @media (min-width: 540px) {
@@ -299,14 +301,16 @@ footer {
     margin-top: 4.75rem;
   }
 
-  #bird-form {
+  #add-bird-component {
+    height: 72.5vh;
+  }
+
+  #bird-form, #user-email {
     width: 50%;
     max-width: 40rem;
   }
 
   #user-email {
-    width: 75%;
-    max-width: 40rem;
     flex-direction: row;
     justify-content: space-between;
   }
