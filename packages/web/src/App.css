@@ -275,6 +275,7 @@ button:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 72.5vh;
 }
 
 #app-title {
