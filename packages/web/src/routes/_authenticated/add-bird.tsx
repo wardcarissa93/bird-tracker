@@ -88,7 +88,6 @@ function AddBird() {
                     throw new Error("An error occurred while adding the bird.");
                 }
                 const { url } = (await signedURLResponse.json()) as { url: string };
-                console.log("url: ", url);
 
                 await fetch(url, {
                     method: "PUT",

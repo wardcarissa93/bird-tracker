@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import SearchBar from '../../components/search-bar';
 import '../../App.css';
 
@@ -35,8 +35,6 @@ function HomePage() {
     }
   };
 
-  console.log("search results: ", searchResults);
-
   return (
     <div className="App">
       <div id="search-title">
@@ -58,6 +56,10 @@ function HomePage() {
               <p>{bird.name}</p>
               <p className="species-name">{bird.sciName}</p>
             </div>
+            <Link to="/bird/$birdId" params={{ birdId: bird.id.toLocaleString() }}>
+              <button className="more-info-button">More Info</button>
+            </Link>
+
           </div>
         ))}
       </div>

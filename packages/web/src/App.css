@@ -118,6 +118,10 @@ body {
   margin: 0;
 }
 
+.more-info-button {
+  margin: 1rem auto 0 auto;
+}
+
 .bird-result-image {
   /* display: flex;
   justify-content: center;
@@ -221,7 +225,6 @@ button:hover {
 .bird-found, 
 .bird-result {
   width: 18rem;
-  height: 18rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -230,6 +233,18 @@ button:hover {
   border: 5px solid #337357;
   border-radius: 1rem;
   margin: 1rem;
+}
+
+.bird-found {
+  height: 18rem;
+}
+
+.bird-result {
+  height: 20rem;
+}
+
+.bird-result>a {
+  text-decoration: none;
 }
 
 .no-image-div,

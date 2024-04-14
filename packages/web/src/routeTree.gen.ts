@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as AuthenticatedImport } from './routes/_authenticated'
 import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index'
+import { Route as BirdBirdIdImport } from './routes/bird.$birdId'
 import { Route as AuthenticatedProfileImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedMyBirdsImport } from './routes/_authenticated/my-birds'
 import { Route as AuthenticatedAddBirdImport } from './routes/_authenticated/add-bird'
@@ -27,6 +28,11 @@ const AuthenticatedRoute = AuthenticatedImport.update({
 const AuthenticatedIndexRoute = AuthenticatedIndexImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedRoute,
+} as any)
+
+const BirdBirdIdRoute = BirdBirdIdImport.update({
+  path: '/bird/$birdId',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const AuthenticatedProfileRoute = AuthenticatedProfileImport.update({
@@ -64,6 +70,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedProfileImport
       parentRoute: typeof AuthenticatedImport
     }
+    '/bird/$birdId': {
+      preLoaderRoute: typeof BirdBirdIdImport
+      parentRoute: typeof rootRoute
+    }
     '/_authenticated/': {
       preLoaderRoute: typeof AuthenticatedIndexImport
       parentRoute: typeof AuthenticatedImport
@@ -80,6 +90,7 @@ export const routeTree = rootRoute.addChildren([
     AuthenticatedProfileRoute,
     AuthenticatedIndexRoute,
   ]),
+  BirdBirdIdRoute,
 ])
 
 /* prettier-ignore-end */
