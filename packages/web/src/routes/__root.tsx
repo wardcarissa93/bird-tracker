@@ -14,13 +14,13 @@ function RootRouteComponent() {
     <>
       <div id="nav-bar">
         <div id="left-nav-bar">
-          <Link to="/" className="[&.active]:font-bold">
+          <Link to="/">
             Home
           </Link>
-          <Link to="/add-bird" className="[&.active]:font-bold">
+          <Link to="/add-bird">
             Add Bird
           </Link>
-          <Link to="/my-birds" className="[&.active]:font-bold">
+          <Link to="/my-birds">
             My Birds
           </Link>
         </div>

@@ -16,6 +16,7 @@ import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index
 import { Route as AuthenticatedProfileImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedMyBirdsImport } from './routes/_authenticated/my-birds'
 import { Route as AuthenticatedAddBirdImport } from './routes/_authenticated/add-bird'
+import { Route as AuthenticatedBirdBirdIdImport } from './routes/_authenticated/bird.$birdId'
 
 // Create/Update Routes
 
@@ -44,6 +45,11 @@ const AuthenticatedAddBirdRoute = AuthenticatedAddBirdImport.update({
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 
+const AuthenticatedBirdBirdIdRoute = AuthenticatedBirdBirdIdImport.update({
+  path: '/bird/$birdId',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -68,6 +74,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIndexImport
       parentRoute: typeof AuthenticatedImport
     }
+    '/_authenticated/bird/$birdId': {
+      preLoaderRoute: typeof AuthenticatedBirdBirdIdImport
+      parentRoute: typeof AuthenticatedImport
+    }
   }
 }
 
@@ -79,6 +89,7 @@ export const routeTree = rootRoute.addChildren([
     AuthenticatedMyBirdsRoute,
     AuthenticatedProfileRoute,
     AuthenticatedIndexRoute,
+    AuthenticatedBirdBirdIdRoute,
   ]),
 ])
 
