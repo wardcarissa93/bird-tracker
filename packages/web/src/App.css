@@ -355,7 +355,7 @@ button:hover {
 #bird-detail-name,
 #bird-detail-order,
 #bird-detail-family,
-#bird-detail-wingspan,
+#bird-detail-length,
 #bird-detail-status {
   display: flex;
   flex-direction: column;
@@ -366,7 +366,7 @@ button:hover {
 #bird-detail-name>p,
 #bird-detail-order>p,
 #bird-detail-family>p,
-#bird-detail-wingspan>p,
+#bird-detail-length>p,
 #bird-detail-status>p {
   margin: 0;
 }
@@ -472,7 +472,7 @@ footer {
   #bird-detail-name,
   #bird-detail-order,
   #bird-detail-family,
-  #bird-detail-wingspan,
+  #bird-detail-length,
   #bird-detail-status
    {
     flex-direction: row;

@@ -61,8 +61,8 @@ function BirdDetailPage() {
           <p>Family:</p>
           <p>{bird?.family}</p>
         </div>
-        <div id="bird-detail-wingspan">
-          <p>Wingspan:</p>
+        <div id="bird-detail-length">
+          <p>Length:</p>
           <p>{bird?.lengthMin} - {bird?.lengthMax} cm</p>
         </div>
         <div id="bird-detail-status">
