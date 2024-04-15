@@ -61,10 +61,12 @@ function BirdDetailPage() {
           <p>Family:</p>
           <p>{bird?.family}</p>
         </div>
-        <div id="bird-detail-length">
-          <p>Length:</p>
-          <p>{bird?.lengthMin} - {bird?.lengthMax} cm</p>
-        </div>
+        {(bird?.lengthMax && bird?.lengthMin) &&           
+          <div id="bird-detail-length">
+            <p>Length:</p>
+            <p>{bird?.lengthMin} - {bird?.lengthMax} cm</p>
+          </div>
+        }
         <div id="bird-detail-status">
           <p>Conservation Status:</p>
           <p>{bird?.status}</p>
