@@ -70,12 +70,14 @@ function BirdDetailPage() {
           <p>{bird?.status}</p>
         </div>
       </div>
-      {bird?.images && (
+      {(bird?.images && bird?.images.length > 0 ) && (
         <div id="bird-detail-image-div">
           <h4>Image Gallery</h4>
           <div id="bird-detail-images">
             {bird.images.map((image, index) => (
-              <img key={index} src={image} alt={`Image ${index}`} className="bird-detail-image"/>
+              <div className="bird-detail-image">
+                <img key={index} src={image} alt={`Image ${index}`}/>
+              </div>
             ))}
           </div>
         </div>
