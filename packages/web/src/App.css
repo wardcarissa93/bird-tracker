@@ -62,6 +62,11 @@ body {
   cursor: pointer;
 }
 
+#search-results-for {
+  width: 100%;
+  max-width: 960px;
+}
+
 .line {
   width: 100%;
   height: 0.5rem;
@@ -139,7 +144,8 @@ body {
   align-items: center;
 }
 
-#bird-form {
+#bird-form,
+#bird-detail-data {
   display: flex;
   flex-direction: column;
   width: 15rem;
@@ -335,6 +341,30 @@ button:hover {
 
 #logout-button {
   width: 5.5rem;
+}
+
+
+#bird-detail-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#bird-detail-name,
+#bird-detail-order,
+#bird-detail-family,
+#bird-detail-wingspan,
+#bird-detail-status {
+  display: flex;
+  flex-direction: column;
+}
+
+#bird-detail-name>p,
+#bird-detail-order>p,
+#bird-detail-family>p,
+#bird-detail-wingspan>p,
+#bird-detail-status {
+  
 }
 
 footer {

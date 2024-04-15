@@ -19,6 +19,11 @@ function HomePage() {
 
   const handleSearch = async (query: string) => {
     try {
+      const searchResultsFor = document.getElementById('search-results-for');
+      if (searchResultsFor) {
+        searchResultsFor.textContent = "Loading search results...";
+      }
+
       const apiUrl = `https://nuthatch.lastelm.software/v2/birds?page=1&pageSize=100&region=North%20America&operator=AND&name=${query}`;
       const res = await fetch(apiUrl, {
         headers: {
@@ -29,6 +34,17 @@ function HomePage() {
         throw new Error('Failed to fetch search results');
       }
       const data = await res.json();
+      console.log(data);
+
+      if (data["entities"].length === 0) {
+        if (searchResultsFor) {
+          searchResultsFor.textContent = `No search results matching '${query}'. `;
+        }
+      } else {
+        if (searchResultsFor) {
+          searchResultsFor.textContent = `Search results for '${query}': `;
+        }
+      }
       setSearchResults(data["entities"]);
     } catch (error) {
       console.error('Error fetching search results: ', error);
@@ -42,6 +58,7 @@ function HomePage() {
         <h2>by Common Name</h2>
       </div>
       <SearchBar onSearch={handleSearch} />
+      <p id="search-results-for"></p>
       <div id="bird-results-div">
         {searchResults.map((bird) => (
           <div key={bird.id} className="bird-result">
@@ -59,7 +76,6 @@ function HomePage() {
             <Link to="/bird/$birdId" params={{ birdId: bird.id.toLocaleString() }}>
               <button className="more-info-button">More Info</button>
             </Link>
-
           </div>
         ))}
       </div>
