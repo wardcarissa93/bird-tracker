@@ -28,3 +28,10 @@ export default {
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+
+API name: birds api prod
+API ID: 482e80fad1e84aa38f82393d12dc7095
+Audience: api-BirdApp-prod
+ApiEndpoint: https://lb0zgvrgq3.execute-api.us-west-2.amazonaws.com
+WebsiteUrl: https://d3negrz2kpioyi.cloudfront.net
