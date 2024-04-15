@@ -65,7 +65,7 @@ function MyBirds() {
           <p className="species-name">{bird.species}</p>
         </div>
         <div className="location-div">
-          <p>Location seen:</p>
+          <p>Location:</p>
           <p>{bird.location}</p>
         </div>
         <div className="date-div">

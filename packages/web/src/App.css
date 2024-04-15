@@ -287,6 +287,11 @@ button:hover {
 .location-div>p,
 .date-div>p {
   margin: 0;
+  font-size: 14px;
+}
+
+.species-div {
+  margin-top: 0.5rem;
 }
 
 .species-name {

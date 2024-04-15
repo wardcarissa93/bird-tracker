@@ -54,6 +54,11 @@ function AddBird() {
               break;
         }
 
+        if (location.length > 20) {
+            setSubmissionMessage('Error: Please limit location to 20 characters or less');
+            return;
+        }
+
         // Check if the uploaded file is an image
         if (image && !image.type.startsWith('image/')) {
             setSubmissionMessage('Error: Please upload an image file.');
